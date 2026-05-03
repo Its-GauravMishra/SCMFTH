@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Saraswati Vidya Mandir Inter College Fatehpur</title>
+  <meta name="description" content="Contact Saraswati Vidya Mandir Inter College Fatehpur by phone, email, address, map, or message form.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+  <div id="header-root"></div>
+
+  <main>
+    <section class="page-banner" style="background-image: url('https://placehold.co/1600x400/1a3a6b/ffffff?text=Contact+Banner');">
+      <div class="container animate-on-scroll">
+        <h1>संपर्क करें | Contact Us</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span aria-hidden="true">&gt;</span>
+          <span>Contact</span>
+        </nav>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div class="animate-on-scroll animate-left">
+          <div class="section-heading section-heading--left">
+            <h2 id="contact-title">संपर्क जानकारी</h2>
+            <p class="subtitle">Reach the school office</p>
+          </div>
+
+          <div class="contact-info">
+            <article class="card contact-card">
+              <h3>📍 पता | Address:</h3>
+              <p>WRR3+J5H, NH2, Tambeshwar Puram,<br>VIP Road, Near Dak Bungalow, G.T. Road,<br>Fatehpur, Uttar Pradesh – 212601</p>
+            </article>
+
+            <article class="card contact-card">
+              <h3>📞 दूरभाष | Phone &amp; Email:</h3>
+              <p>Phone: <a href="tel:9450263599">9450263599</a></p>
+              <p>Email: <a href="mailto:svmicftp@gmail.com">svmicftp@gmail.com</a></p>
+            </article>
+
+            <article class="card contact-card">
+              <h3>🕐 समय | Working Hours:</h3>
+              <p>Monday – Saturday: 9:00 AM – 4:00 PM</p>
+              <p>Sunday: Closed</p>
+            </article>
+          </div>
+
+          <iframe class="map-frame animate-on-scroll" title="Saraswati Vidya Mandir Inter College Fatehpur map" src="https://maps.google.com/maps?q=WRR3+J5H+Fatehpur+Uttar+Pradesh&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="card contact-form animate-on-scroll animate-right" id="contact-form">
+          <div class="form-success" id="form-success">✅ आपका संदेश भेज दिया गया है। हम शीघ्र संपर्क करेंगे।</div>
+
+          <div class="form-field">
+            <label for="full-name">Full Name</label>
+            <input id="full-name" name="fullName" type="text" autocomplete="name">
+            <span class="error-text" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="phone-number">Phone Number</label>
+            <input id="phone-number" name="phone" type="tel" autocomplete="tel">
+            <span class="error-text" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="email-address">Email Address</label>
+            <input id="email-address" name="email" type="email" autocomplete="email">
+            <span class="error-text" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text">
+            <span class="error-text" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5"></textarea>
+            <span class="error-text" aria-live="polite"></span>
+          </div>
+
+          <button class="btn btn-primary" type="button" id="send-message">संदेश भेजें | Send Message</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script src="header.js"></script>
+  <script src="footer.js"></script>
+  <script src="scroll-animations.js"></script>
+  <script>
+    (function () {
+      const form = document.getElementById("contact-form");
+      const submitButton = document.getElementById("send-message");
+      const successBanner = document.getElementById("form-success");
+      const fields = Array.from(form.querySelectorAll("input, textarea"));
+
+      const validators = {
+        fullName: (value) => value.trim().length >= 2,
+        phone: (value) => /^[0-9+\-\s()]{7,15}$/.test(value.trim()),
+        email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
+        subject: (value) => value.trim().length >= 2,
+        message: (value) => value.trim().length >= 5
+      };
+
+      const messages = {
+        fullName: "Please enter your full name.",
+        phone: "Please enter a valid phone number.",
+        email: "Please enter a valid email address.",
+        subject: "Please enter a subject.",
+        message: "Please enter a message with at least 5 characters."
+      };
+
+      const setError = (field, message) => {
+        const error = field.parentElement.querySelector(".error-text");
+        field.classList.toggle("is-invalid", Boolean(message));
+        error.textContent = message;
+      };
+
+      const validateField = (field) => {
+        const isValid = validators[field.name](field.value);
+        setError(field, isValid ? "" : messages[field.name]);
+        return isValid;
+      };
+
+      fields.forEach((field) => {
+        field.addEventListener("input", () => {
+          if (field.classList.contains("is-invalid")) {
+            validateField(field);
+          }
+        });
+      });
+
+      submitButton.addEventListener("click", () => {
+        const validationResults = fields.map(validateField);
+        const isValid = validationResults.every(Boolean);
+
+        if (!isValid) {
+          successBanner.classList.remove("is-visible");
+          return;
+        }
+
+        successBanner.classList.add("is-visible");
+        fields.forEach((field) => {
+          field.value = "";
+          setError(field, "");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
