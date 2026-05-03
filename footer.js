@@ -1,4 +1,6 @@
 (function () {
+  const LOGO_PATH = "images/logo.png";
+
   const quickLinks = [
     { href: "index.html", label: "Home" },
     { href: "about.html", label: "About Us" },
@@ -8,27 +10,25 @@
   ];
 
   function buildQuickLinks() {
-    return quickLinks
-      .map((link) => `<li><a href="${link.href}">${link.label}</a></li>`)
-      .join("");
+    return quickLinks.map((link) => `<li><a href="${link.href}">${link.label}</a></li>`).join("");
   }
 
   function injectFooter() {
     const root = document.getElementById("footer-root");
-
-    if (!root) {
-      return;
-    }
+    if (!root) return;
 
     root.innerHTML = `
       <footer class="site-footer" data-component="footer">
         <div class="footer-main">
           <div class="container footer-grid">
             <section class="footer-column footer-about" aria-labelledby="footer-about-title">
-              <h2 id="footer-about-title">
-                <span class="footer-title-hi">सरस्वती विद्या मंदिर</span>
-                <span class="footer-title-en">Inter College Fatehpur</span>
-              </h2>
+              <div class="footer-brand">
+                <img class="footer-logo" src="${LOGO_PATH}" alt="School Logo">
+                <h2 id="footer-about-title">
+                  <span class="footer-title-hi">सरस्वती विद्या मंदिर</span>
+                  <span class="footer-title-en">Inter College Fatehpur</span>
+                </h2>
+              </div>
               <p class="footer-tagline">भारतीय संस्कारों से युक्त शिक्षा पद्धति</p>
               <p>Affiliated with Vidya Bharati &amp; UP Board since 1979.</p>
             </section>

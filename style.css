@@ -242,6 +242,12 @@ p {
   box-shadow: 0 10px 24px rgba(26, 58, 107, 0.22);
 }
 
+.logo-icon img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+
 .logo-icon svg {
   width: 70%;
   height: 70%;
@@ -1499,6 +1505,21 @@ p {
 .footer-about h2 {
   display: grid;
   gap: 3px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px;
 }
 
 .footer-title-hi {
