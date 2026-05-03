@@ -85,6 +85,61 @@
       </div>
     </section>
 
+    <section class="image-strip-section" aria-label="School photo strip">
+      <div class="strip-track">
+        <!-- Each img is a real school photo -->
+        <figure class="strip-item">
+          <img src="images/event-photo-1.jpg" alt="Event 1">
+        </figure>
+        <figure class="strip-item">
+          <img src="images/event-photo-2.jpg" alt="Event 2">
+        </figure>
+        <figure class="strip-item">
+          <img src="images/cultural-program-1.jpg" alt="Cultural Program">
+        </figure>
+        <figure class="strip-item">
+          <img src="images/sports-day-1.jpg" alt="Sports Day">
+        </figure>
+        <figure class="strip-item">
+          <img src="images/event-photo-3.jpg" alt="Event 3">
+        </figure>
+        <figure class="strip-item">
+          <img src="images/classroom-activity.jpg" alt="Classroom">
+        </figure>
+        <figure class="strip-item">
+          <img src="images/event-photo-4.jpg" alt="Event 4">
+        </figure>
+        <figure class="strip-item">
+          <img src="images/science-lab.jpg" alt="Science Lab">
+        </figure>
+        <!-- DUPLICATE ALL for seamless loop -->
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/event-photo-1.jpg" alt="">
+        </figure>
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/event-photo-2.jpg" alt="">
+        </figure>
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/cultural-program-1.jpg" alt="">
+        </figure>
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/sports-day-1.jpg" alt="">
+        </figure>
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/event-photo-3.jpg" alt="">
+        </figure>
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/classroom-activity.jpg" alt="">
+        </figure>
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/event-photo-4.jpg" alt="">
+        </figure>
+        <figure class="strip-item" aria-hidden="true">
+          <img src="images/science-lab.jpg" alt="">
+        </figure>
+      </div>
+    </section>
+
     <section class="section" aria-labelledby="news-title">
       <div class="container">
         <div class="section-heading animate-on-scroll">
@@ -99,19 +154,40 @@
             <p>एयर चीफ मार्शल ए. पी. सिंह सहित यात्रा दल का हमारे विद्यालय में भव्य स्वागत किया गया। विद्यार्थियों और शिक्षकों ने उत्साहपूर्वक उनका अभिनंदन किया। परंपरागत रीति-रिवाजों के साथ पुष्पगुच्छ और स्वागत गीत प्रस्तुत किए गए। उनकी उपस्थिति से विद्यालय परिसर में विशेष उत्साह का माहौल बना। एयर चीफ मार्शल ने छात्रों को प्रेरक संदेश देकर उनका मनोबल बढ़ाया।</p>
           </div>
 
-          <div class="photo-collage" aria-label="Event photo collage">
-            <figure class="photo-card">
-              <img src="images/event-photo-1.jpg" alt="Event Photo 1">
+          <div class="event-magazine-collage" aria-label="Event photo collage">
+
+            <!-- BIG HERO IMAGE — left, tall, dominant -->
+            <figure class="collage-hero">
+              <img src="images/event-photo-1.jpg" alt="Air Chief Marshal Welcome">
             </figure>
-            <figure class="photo-card">
-              <img src="images/event-photo-2.jpg" alt="Event Photo 2">
-            </figure>
-            <figure class="photo-card">
-              <img src="images/event-photo-3.jpg" alt="Event Photo 3">
-            </figure>
-            <figure class="photo-card">
-              <img src="images/event-photo-4.jpg" alt="Event Photo 4">
-            </figure>
+
+            <!-- STACKED RIGHT COLUMN -->
+            <div class="collage-stack">
+
+              <!-- TOP RIGHT — medium portrait -->
+              <figure class="collage-top-right">
+                <img src="images/event-photo-2.jpg" alt="Award Ceremony">
+              </figure>
+
+              <!-- NEWSPAPER CLIPPING STYLE — middle right -->
+              <figure class="collage-newspaper">
+                <img src="images/event-photo-3.jpg" alt="News Coverage">
+                <figcaption class="newspaper-label">📰 समाचार कवरेज</figcaption>
+              </figure>
+
+              <!-- BOTTOM RIGHT — landscape wide -->
+              <figure class="collage-bottom-right">
+                <img src="images/event-photo-4.jpg" alt="Group Celebration">
+              </figure>
+
+            </div>
+
+            <!-- FLOATING BADGE — positioned over the collage -->
+            <div class="collage-badge" aria-hidden="true">
+              <span>विशेष</span>
+              <span>कार्यक्रम</span>
+            </div>
+
           </div>
         </article>
       </div>
@@ -222,31 +298,38 @@
           <h2 id="gallery-preview-title">झलकियाँ | Gallery Preview</h2>
         </div>
 
-        <div class="gallery-preview">
-          <figure class="gallery-card animate-on-scroll delay-1">
+        <div class="polaroid-wall">
+
+          <figure class="polaroid polaroid--tilt-left">
             <img src="images/campus-view.jpg" alt="Campus View">
-            <figcaption class="gallery-caption">Campus View</figcaption>
+            <figcaption>विद्यालय परिसर</figcaption>
           </figure>
-          <figure class="gallery-card animate-on-scroll delay-2">
+
+          <figure class="polaroid polaroid--tilt-right">
             <img src="images/science-lab.jpg" alt="Science Lab">
-            <figcaption class="gallery-caption">Science Lab</figcaption>
+            <figcaption>विज्ञान प्रयोगशाला</figcaption>
           </figure>
-          <figure class="gallery-card animate-on-scroll delay-3">
+
+          <figure class="polaroid polaroid--tilt-left">
             <img src="images/sports-day.jpg" alt="Sports Day">
-            <figcaption class="gallery-caption">Sports Day</figcaption>
+            <figcaption>खेल दिवस</figcaption>
           </figure>
-          <figure class="gallery-card animate-on-scroll delay-1">
+
+          <figure class="polaroid polaroid--straight">
             <img src="images/cultural-program.jpg" alt="Cultural Program">
-            <figcaption class="gallery-caption">Cultural Program</figcaption>
+            <figcaption>सांस्कृतिक कार्यक्रम</figcaption>
           </figure>
-          <figure class="gallery-card animate-on-scroll delay-2">
-            <img src="images/classroom-activity.jpg" alt="Classroom Activity">
-            <figcaption class="gallery-caption">Classroom Activity</figcaption>
+
+          <figure class="polaroid polaroid--tilt-right">
+            <img src="images/classroom-activity.jpg" alt="Classroom">
+            <figcaption>कक्षा गतिविधि</figcaption>
           </figure>
-          <figure class="gallery-card animate-on-scroll delay-3">
-            <img src="images/event-photo.jpg" alt="Event Photo">
-            <figcaption class="gallery-caption">Event Photo</figcaption>
+
+          <figure class="polaroid polaroid--tilt-left">
+            <img src="images/event-photo.jpg" alt="Event">
+            <figcaption>विशेष कार्यक्रम</figcaption>
           </figure>
+
         </div>
 
         <div class="section-action animate-on-scroll">
@@ -317,6 +400,12 @@
       } else {
         counters.forEach(runCounter);
       }
+
+      // Lazy-load opacity effect
+      document.querySelectorAll('img').forEach(function(img) {
+        img.addEventListener('load', function() { img.classList.add('loaded'); });
+        if (img.complete) img.classList.add('loaded');
+      });
     })();
   </script>
 </body>

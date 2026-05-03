@@ -35,6 +35,24 @@
           <p class="subtitle hindi">सरस्वती विद्या मंदिर, फतेहपुर की गैलरी विद्यालय के गौरवशाली पलों का प्रतिबिंब है। यहां शैक्षणिक, सांस्कृतिक और खेलकूद गतिविधियों की झलक देखने को मिलती है।</p>
         </div>
 
+        <div class="gallery-featured-banner">
+          <figure class="featured-hero-img">
+            <img src="images/event-photo-1.jpg" 
+                 alt="Featured: Air Chief Marshal Visit">
+            <div class="featured-overlay">
+              <div class="featured-text">
+                <span class="featured-tag">⭐ विशेष आयोजन</span>
+                <h3>एयर चीफ मार्शल ए.पी. सिंह — भव्य स्वागत</h3>
+                <p>Air Chief Marshal A.P. Singh's grand welcome at our campus</p>
+              </div>
+              <div class="featured-count">
+                <span class="count-number">20+</span>
+                <span class="count-label">Photos</span>
+              </div>
+            </div>
+          </figure>
+        </div>
+
         <div class="filter-buttons animate-on-scroll" role="group" aria-label="Gallery filters">
           <button class="filter-btn is-active" type="button" data-filter="all">सभी | All</button>
           <button class="filter-btn" type="button" data-filter="events">कार्यक्रम | Events</button>
@@ -125,6 +143,104 @@
             <figcaption class="gallery-caption">Science Exhibition</figcaption>
           </figure>
         </div>
+
+        <div class="scroll-rows-section">
+
+          <div class="scroll-row">
+            <div class="scroll-row-header">
+              <h3>🎉 कार्यक्रम | Events</h3>
+              <button class="scroll-row-btn" 
+                      onclick="scrollRow(this,-1)" 
+                      aria-label="Scroll left">‹</button>
+              <button class="scroll-row-btn" 
+                      onclick="scrollRow(this,1)" 
+                      aria-label="Scroll right">›</button>
+            </div>
+            <div class="scroll-row-track">
+              <figure class="scroll-card">
+                <img src="images/event-photo-1.jpg" alt="Event 1">
+                <figcaption>Event Photo 1</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/event-photo-2.jpg" alt="Event 2">
+                <figcaption>Event Photo 2</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/event-photo-3.jpg" alt="Event 3">
+                <figcaption>Event Photo 3</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/event-photo-4.jpg" alt="Event 4">
+                <figcaption>Event Photo 4</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/event-photo-5.jpg" alt="Event 5">
+                <figcaption>Event Photo 5</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/event-photo-6.jpg" alt="Event 6">
+                <figcaption>Event Photo 6</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="scroll-row">
+            <div class="scroll-row-header">
+              <h3>🏅 खेलकूद | Sports</h3>
+              <button class="scroll-row-btn" 
+                      onclick="scrollRow(this,-1)" 
+                      aria-label="Scroll left">‹</button>
+              <button class="scroll-row-btn" 
+                      onclick="scrollRow(this,1)" 
+                      aria-label="Scroll right">›</button>
+            </div>
+            <div class="scroll-row-track">
+              <figure class="scroll-card">
+                <img src="images/sports-day-1.jpg" alt="Sports Day 1">
+                <figcaption>Sports Day 1</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/sports-day-2.jpg" alt="Sports Day 2">
+                <figcaption>Sports Day 2</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/sports-day-3.jpg" alt="Sports Day 3">
+                <figcaption>Sports Day 3</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/sports-day-4.jpg" alt="Sports Day 4">
+                <figcaption>Sports Day 4</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="scroll-row">
+            <div class="scroll-row-header">
+              <h3>🎭 सांस्कृतिक | Cultural</h3>
+              <button class="scroll-row-btn" 
+                      onclick="scrollRow(this,-1)" 
+                      aria-label="Scroll left">‹</button>
+              <button class="scroll-row-btn" 
+                      onclick="scrollRow(this,1)" 
+                      aria-label="Scroll right">›</button>
+            </div>
+            <div class="scroll-row-track">
+              <figure class="scroll-card">
+                <img src="images/cultural-program-1.jpg" alt="Cultural 1">
+                <figcaption>Cultural Program 1</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/cultural-program-2.jpg" alt="Cultural 2">
+                <figcaption>Cultural Program 2</figcaption>
+              </figure>
+              <figure class="scroll-card">
+                <img src="images/cultural-program-3.jpg" alt="Cultural 3">
+                <figcaption>Cultural Program 3</figcaption>
+              </figure>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   </main>
@@ -142,6 +258,13 @@
   <script src="footer.js"></script>
   <script src="scroll-animations.js"></script>
   <script>
+    function scrollRow(btn, direction) {
+      const track = btn.closest('.scroll-row')
+                       .querySelector('.scroll-row-track');
+      const cardWidth = track.querySelector('.scroll-card').offsetWidth + 14;
+      track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
+    }
+
     (function () {
       const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
       const cards = Array.from(document.querySelectorAll(".masonry-gallery .gallery-card"));
@@ -247,6 +370,12 @@
         if (event.key === "ArrowRight") {
           showImage(currentIndex + 1);
         }
+      });
+
+      // Lazy-load opacity effect
+      document.querySelectorAll('img').forEach(function(img) {
+        img.addEventListener('load', function() { img.classList.add('loaded'); });
+        if (img.complete) img.classList.add('loaded');
       });
     })();
   </script>
