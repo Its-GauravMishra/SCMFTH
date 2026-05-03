@@ -9,14 +9,537 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="images/logo.png">
-  <link rel="apple-touch-icon" href="images/logo.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       GALLERY PAGE — COMPLETE CSS OVERRIDES
+       All gallery-specific styles in one place
+    ═══════════════════════════════════════════ */
+
+    /* ── FEATURED BANNER ── */
+    .gallery-featured-banner {
+      margin-bottom: 36px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(13,31,60,0.22);
+    }
+    .featured-hero-img {
+      margin: 0;
+      position: relative;
+      height: clamp(200px, 38vw, 420px);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .featured-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+    .gallery-featured-banner:hover .featured-hero-img img {
+      transform: scale(1.04);
+    }
+    .featured-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(13,31,60,0.92) 0%,
+        rgba(13,31,60,0.55) 50%,
+        transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: clamp(16px, 4vw, 40px);
+    }
+    .featured-text { max-width: 560px; }
+    .featured-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 5px 16px;
+      border-radius: 999px;
+      font-family: var(--font-hi);
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+    .featured-text h3 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-family: var(--font-hi);
+      font-size: clamp(1rem, 3vw, 1.8rem);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .featured-text p {
+      margin: 0;
+      color: rgba(255,255,255,0.75);
+      font-size: clamp(0.8rem, 2vw, 0.92rem);
+    }
+    .featured-count {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 76px;
+      height: 76px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.13);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #fff;
+    }
+    .count-number { font-size: 1.35rem; font-weight: 800; line-height: 1; }
+    .count-label  { font-size: 0.68rem; font-weight: 700; opacity: 0.8; }
+    @media (max-width: 480px) { .featured-count { display: none; } }
+
+    /* ── FILTER BUTTONS ── */
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .filter-btn {
+      padding: 9px 20px;
+      min-height: 42px;
+      border: 2px solid var(--border);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--primary);
+      cursor: pointer;
+      font-family: var(--font-hi);
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: all 0.28s ease;
+      letter-spacing: 0.2px;
+    }
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .filter-btn.is-active {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(224,123,0,0.3);
+      transform: translateY(-2px);
+    }
+    @media (max-width: 400px) {
+      .filter-btn { padding: 7px 13px; font-size: 0.78rem; }
+    }
+
+    /* ══════════════════════════════════════════════
+       MASONRY GALLERY — CSS GRID (NOT columns)
+       Fully responsive, no broken layouts
+    ══════════════════════════════════════════════ */
+    .masonry-gallery {
+      /* Reset any column-based layout from style.css */
+      columns: unset !important;
+      column-gap: unset !important;
+
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 180px;
+      gap: 8px;
+      width: 100%;
+    }
+    @media (min-width: 540px) {
+      .masonry-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 190px;
+        gap: 10px;
+      }
+    }
+    @media (min-width: 900px) {
+      .masonry-gallery {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 210px;
+        gap: 12px;
+      }
+    }
+    @media (min-width: 1200px) {
+      .masonry-gallery {
+        grid-auto-rows: 230px;
+      }
+    }
+
+    /* Gallery card — base */
+    .masonry-gallery .gallery-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      background: var(--primary);
+      /* Override any min-height from style.css */
+      min-height: unset !important;
+      /* Use display:block not inline-block */
+      display: block !important;
+      width: 100% !important;
+      margin-bottom: 0 !important;
+      box-shadow: 0 4px 14px rgba(13,31,60,0.13);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Tall cards span 2 rows — only tablet+ */
+    @media (min-width: 540px) {
+      .masonry-gallery .gallery-card.tall {
+        grid-row: span 2;
+      }
+    }
+
+    /* Wide cards span 2 cols — only tablet+ */
+    @media (min-width: 540px) {
+      .masonry-gallery .gallery-card.wide {
+        grid-column: span 2;
+      }
+    }
+
+    /* Image fills the card completely */
+    .masonry-gallery .gallery-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.4s ease;
+    }
+
+    /* Hover effects */
+    .masonry-gallery .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 44px rgba(13,31,60,0.22);
+    }
+    .masonry-gallery .gallery-card:hover img {
+      transform: scale(1.08);
+      filter: saturate(1.1) brightness(1.03);
+    }
+
+    /* Category dot */
+    .masonry-gallery .gallery-card::before {
+      content: '';
+      position: absolute;
+      top: 9px;
+      left: 9px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      z-index: 3;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.6);
+    }
+    .masonry-gallery .gallery-card[data-category="events"]::before   { background: var(--accent); }
+    .masonry-gallery .gallery-card[data-category="sports"]::before   { background: #16a34a; }
+    .masonry-gallery .gallery-card[data-category="cultural"]::before { background: #7c3aed; }
+    .masonry-gallery .gallery-card[data-category="academic"]::before { background: #0284c7; }
+
+    /* Caption overlay — always visible on mobile, hover on desktop */
+    .gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 28px 10px 10px;
+      background: linear-gradient(0deg, rgba(13,31,60,0.88), transparent);
+      color: #fff;
+      font-family: var(--font-hi);
+      font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+      font-weight: 700;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+    @media (min-width: 768px) {
+      .gallery-caption { transform: translateY(100%); }
+      .masonry-gallery .gallery-card:hover .gallery-caption { transform: translateY(0); }
+    }
+
+    /* Filter hide/show */
+    .masonry-gallery .gallery-card[hidden] { display: none !important; }
+    .masonry-gallery .gallery-card.is-hidden {
+      opacity: 0;
+      transform: scale(0.92);
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════════════
+       SCROLL ROWS — Netflix-style horizontal scroll
+    ══════════════════════════════════════════════ */
+    .scroll-rows-section {
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 52px;
+    }
+
+    .scroll-row { width: 100%; }
+
+    .scroll-row-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding: 0 2px;
+    }
+    .scroll-row-header h3 {
+      flex: 1;
+      margin: 0;
+      color: var(--primary);
+      font-family: var(--font-hi);
+      font-size: clamp(1rem, 2.5vw, 1.22rem);
+      font-weight: 800;
+    }
+    .scroll-row-btn {
+      width: 38px; height: 38px;
+      min-width: 38px; min-height: 38px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      border: none;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: background 0.25s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(26,58,107,0.25);
+    }
+    .scroll-row-btn:hover {
+      background: var(--accent);
+      transform: scale(1.12);
+    }
+    @media (max-width: 599px) {
+      .scroll-row-btn { display: none; }
+    }
+
+    /* Wrapper for fade-edge effect */
+    .scroll-row-wrapper {
+      position: relative;
+    }
+    .scroll-row-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 50px;
+      background: linear-gradient(-90deg, rgba(255,255,255,0.95), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+    @media (min-width: 768px) {
+      .scroll-row-wrapper::after { display: none; }
+    }
+
+    /* Scrollable track */
+    .scroll-row-track {
+      display: flex;
+      gap: 12px;
+      overflow-x: scroll;
+      overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      padding: 6px 4px 16px;
+    }
+    .scroll-row-track::-webkit-scrollbar { display: none; }
+
+    /* ── SCROLL CARD ── the core fix ── */
+    .scroll-card {
+      flex: 0 0 auto;
+      /* Responsive width — never overflows on mobile */
+      width: clamp(150px, 40vw, 280px);
+      /* aspect-ratio controls height — NO fixed height */
+      aspect-ratio: 4 / 3;
+      scroll-snap-align: start;
+      margin: 0;
+      border-radius: 14px;
+      /* CRITICAL: relative so absolute img works */
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: linear-gradient(135deg, #1a3a6b, #0d1f3c);
+      box-shadow: 0 6px 20px rgba(13,31,60,0.16);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      isolation: isolate;
+    }
+    @media (min-width: 600px) {
+      .scroll-card { width: clamp(220px, 28vw, 290px); }
+    }
+    @media (min-width: 1024px) {
+      .scroll-card { width: clamp(260px, 22vw, 320px); aspect-ratio: 16/10; }
+    }
+
+    /* Image fills card completely — KEY FIX */
+    .scroll-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, opacity 0.4s ease;
+      opacity: 0;
+    }
+    .scroll-card img.img-ready { opacity: 1; }
+
+    /* Shimmer while image loads */
+    .scroll-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.08) 50%,
+        rgba(255,255,255,0) 100%
+      );
+      background-size: 200% 100%;
+      animation: cardShimmer 1.8s infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .scroll-card.img-ready::before { display: none; }
+
+    @keyframes cardShimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+
+    /* SVM fallback text when image missing */
+    .scroll-card .card-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(255,255,255,0.18);
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 6px;
+      z-index: 0;
+    }
+
+    /* Caption overlay */
+    .scroll-card figcaption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 30px 12px 12px;
+      background: linear-gradient(0deg, rgba(13,31,60,0.88), transparent);
+      color: #fff;
+      font-family: var(--font-hi);
+      font-size: clamp(0.72rem, 2vw, 0.85rem);
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 3;
+    }
+    .scroll-card:hover figcaption,
+    .scroll-card:focus figcaption { opacity: 1; }
+    /* Always show caption on mobile */
+    @media (max-width: 600px) { .scroll-card figcaption { opacity: 1; } }
+
+    /* Hover effects */
+    .scroll-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(13,31,60,0.26);
+    }
+    .scroll-card:hover img { transform: scale(1.08); }
+
+    /* ── SCROLL DOTS ── */
+    .scroll-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    @media (min-width: 768px) { .scroll-dots { display: none; } }
+
+    .scroll-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: background 0.3s ease, width 0.3s ease;
+    }
+    .scroll-dot.is-active {
+      background: var(--accent);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(5,12,24,0.92);
+      backdrop-filter: blur(4px);
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      width: auto;
+      max-width: 92vw;
+      max-height: 88svh;
+      border-radius: 10px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      object-fit: contain;
+      display: block;
+    }
+    .lightbox-btn {
+      position: absolute;
+      display: grid;
+      width: 46px; height: 46px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.8rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .lightbox-btn:hover {
+      background: var(--accent);
+      transform: scale(1.08);
+    }
+    .lightbox-close { top: 18px; right: 18px; }
+    .lightbox-prev  { top: 50%; left: 18px; transform: translateY(-50%); }
+    .lightbox-next  { top: 50%; right: 18px; transform: translateY(-50%); }
+    @media (max-width: 500px) {
+      .lightbox-prev { top: auto; bottom: 18px; left: 18px; transform: none; }
+      .lightbox-next { top: auto; bottom: 18px; right: 18px; transform: none; }
+    }
+
+    /* ── SECTION HEADING OVERRIDE ── */
+    .section-heading h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      margin: 12px auto 0;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+  </style>
 </head>
 <body>
   <div id="header-root"></div>
 
   <main>
+
+    <!-- PAGE BANNER -->
     <section class="page-banner" style="background-image: url('images/gallery-banner.jpg');">
       <div class="container animate-on-scroll">
         <h1>गैलरी | Gallery</h1>
@@ -28,17 +551,20 @@
       </div>
     </section>
 
+    <!-- GALLERY SECTION -->
     <section class="section" aria-labelledby="gallery-title">
       <div class="container">
+
+        <!-- Section Heading -->
         <div class="section-heading animate-on-scroll">
           <h2 id="gallery-title">विद्यालय की झलकियाँ</h2>
           <p class="subtitle hindi">सरस्वती विद्या मंदिर, फतेहपुर की गैलरी विद्यालय के गौरवशाली पलों का प्रतिबिंब है। यहां शैक्षणिक, सांस्कृतिक और खेलकूद गतिविधियों की झलक देखने को मिलती है।</p>
         </div>
 
-        <div class="gallery-featured-banner">
+        <!-- FEATURED BANNER -->
+        <div class="gallery-featured-banner animate-on-scroll">
           <figure class="featured-hero-img">
-            <img src="images/event-photo-1.jpg" 
-                 alt="Featured: Air Chief Marshal Visit">
+            <img src="images/event-photo-1.jpg" alt="Featured: Air Chief Marshal Visit" loading="eager">
             <div class="featured-overlay">
               <div class="featured-text">
                 <span class="featured-tag">⭐ विशेष आयोजन</span>
@@ -53,6 +579,7 @@
           </figure>
         </div>
 
+        <!-- FILTER BUTTONS -->
         <div class="filter-buttons animate-on-scroll" role="group" aria-label="Gallery filters">
           <button class="filter-btn is-active" type="button" data-filter="all">सभी | All</button>
           <button class="filter-btn" type="button" data-filter="events">कार्यक्रम | Events</button>
@@ -61,195 +588,247 @@
           <button class="filter-btn" type="button" data-filter="academic">शैक्षणिक | Academic</button>
         </div>
 
-        <div class="masonry-gallery" id="gallery-grid">
-          <figure class="gallery-card tall animate-on-scroll delay-1" data-category="events">
-            <img src="images/event-photo-1.jpg" alt="Event Photo 1">
-            <figcaption class="gallery-caption">Event Photo 1</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-2" data-category="events">
-            <img src="images/event-photo-2.jpg" alt="Event Photo 2">
-            <figcaption class="gallery-caption">Event Photo 2</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-3" data-category="events">
-            <img src="images/event-photo-3.jpg" alt="Event Photo 3">
-            <figcaption class="gallery-caption">Event Photo 3</figcaption>
-          </figure>
-          <figure class="gallery-card wide animate-on-scroll delay-1" data-category="events">
-            <img src="images/event-photo-4.jpg" alt="Event Photo 4">
-            <figcaption class="gallery-caption">Event Photo 4</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-2" data-category="events">
-            <img src="images/event-photo-5.jpg" alt="Event Photo 5">
-            <figcaption class="gallery-caption">Event Photo 5</figcaption>
-          </figure>
-          <figure class="gallery-card tall animate-on-scroll delay-3" data-category="events">
-            <img src="images/event-photo-6.jpg" alt="Event Photo 6">
-            <figcaption class="gallery-caption">Event Photo 6</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-1" data-category="events">
-            <img src="images/event-photo-7.jpg" alt="Event Photo 7">
-            <figcaption class="gallery-caption">Event Photo 7</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-2" data-category="events">
-            <img src="images/event-photo-8.jpg" alt="Event Photo 8">
-            <figcaption class="gallery-caption">Event Photo 8</figcaption>
-          </figure>
-          <figure class="gallery-card wide animate-on-scroll delay-3" data-category="sports">
-            <img src="images/sports-day-1.jpg" alt="Sports Day 1">
-            <figcaption class="gallery-caption">Sports Day 1</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-1" data-category="sports">
-            <img src="images/sports-day-2.jpg" alt="Sports Day 2">
-            <figcaption class="gallery-caption">Sports Day 2</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-2" data-category="sports">
-            <img src="images/sports-day-3.jpg" alt="Sports Day 3">
-            <figcaption class="gallery-caption">Sports Day 3</figcaption>
-          </figure>
-          <figure class="gallery-card tall animate-on-scroll delay-3" data-category="sports">
-            <img src="images/sports-day-4.jpg" alt="Sports Day 4">
-            <figcaption class="gallery-caption">Sports Day 4</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-1" data-category="cultural">
-            <img src="images/cultural-program-1.jpg" alt="Cultural Program 1">
-            <figcaption class="gallery-caption">Cultural Program 1</figcaption>
-          </figure>
-          <figure class="gallery-card wide animate-on-scroll delay-2" data-category="cultural">
-            <img src="images/cultural-program-2.jpg" alt="Cultural Program 2">
-            <figcaption class="gallery-caption">Cultural Program 2</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-3" data-category="cultural">
-            <img src="images/cultural-program-3.jpg" alt="Cultural Program 3">
-            <figcaption class="gallery-caption">Cultural Program 3</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-1" data-category="academic">
-            <img src="images/science-lab.jpg" alt="Science Lab">
-            <figcaption class="gallery-caption">Science Lab</figcaption>
-          </figure>
-          <figure class="gallery-card tall animate-on-scroll delay-2" data-category="academic">
-            <img src="images/classroom-activity.jpg" alt="Classroom Activity">
-            <figcaption class="gallery-caption">Classroom Activity</figcaption>
-          </figure>
-          <figure class="gallery-card wide animate-on-scroll delay-3" data-category="academic">
-            <img src="images/annual-function.jpg" alt="Annual Function">
-            <figcaption class="gallery-caption">Annual Function</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-1" data-category="academic">
-            <img src="images/library-activity.jpg" alt="Library Activity">
-            <figcaption class="gallery-caption">Library Activity</figcaption>
-          </figure>
-          <figure class="gallery-card animate-on-scroll delay-2" data-category="academic">
-            <img src="images/science-exhibition.jpg" alt="Science Exhibition">
-            <figcaption class="gallery-caption">Science Exhibition</figcaption>
-          </figure>
-        </div>
+        <!-- MASONRY GRID -->
+        <div class="masonry-gallery" id="gallery-grid" role="list">
 
+          <figure class="gallery-card tall" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-1.jpg" alt="एयर चीफ मार्शल स्वागत" loading="lazy">
+            <figcaption class="gallery-caption">एयर चीफ मार्शल स्वागत</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-2.jpg" alt="पुरस्कार समारोह" loading="lazy">
+            <figcaption class="gallery-caption">पुरस्कार समारोह</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-3.jpg" alt="समाचार कवरेज" loading="lazy">
+            <figcaption class="gallery-caption">समाचार कवरेज</figcaption>
+          </figure>
+
+          <figure class="gallery-card wide" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-4.jpg" alt="सामूहिक कार्यक्रम" loading="lazy">
+            <figcaption class="gallery-caption">सामूहिक कार्यक्रम</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-5.jpg" alt="विशेष आयोजन" loading="lazy">
+            <figcaption class="gallery-caption">विशेष आयोजन</figcaption>
+          </figure>
+
+          <figure class="gallery-card tall" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-6.jpg" alt="स्वागत समारोह" loading="lazy">
+            <figcaption class="gallery-caption">स्वागत समारोह</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-7.jpg" alt="कार्यक्रम झलकी" loading="lazy">
+            <figcaption class="gallery-caption">कार्यक्रम झलकी</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="events" role="listitem" tabindex="0">
+            <img src="images/event-photo-8.jpg" alt="विदाई समारोह" loading="lazy">
+            <figcaption class="gallery-caption">विदाई समारोह</figcaption>
+          </figure>
+
+          <figure class="gallery-card wide" data-category="sports" role="listitem" tabindex="0">
+            <img src="images/sports-day-1.jpg" alt="खेल दिवस" loading="lazy">
+            <figcaption class="gallery-caption">खेल दिवस</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="sports" role="listitem" tabindex="0">
+            <img src="images/sports-day-2.jpg" alt="खेलकूद प्रतियोगिता" loading="lazy">
+            <figcaption class="gallery-caption">खेलकूद प्रतियोगिता</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="sports" role="listitem" tabindex="0">
+            <img src="images/sports-day-3.jpg" alt="वार्षिक खेलोत्सव" loading="lazy">
+            <figcaption class="gallery-caption">वार्षिक खेलोत्सव</figcaption>
+          </figure>
+
+          <figure class="gallery-card tall" data-category="sports" role="listitem" tabindex="0">
+            <img src="images/sports-day-4.jpg" alt="पुरस्कार वितरण" loading="lazy">
+            <figcaption class="gallery-caption">पुरस्कार वितरण</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="cultural" role="listitem" tabindex="0">
+            <img src="images/cultural-program-1.jpg" alt="सांस्कृतिक कार्यक्रम" loading="lazy">
+            <figcaption class="gallery-caption">सांस्कृतिक कार्यक्रम</figcaption>
+          </figure>
+
+          <figure class="gallery-card wide" data-category="cultural" role="listitem" tabindex="0">
+            <img src="images/cultural-program-2.jpg" alt="नृत्य प्रस्तुति" loading="lazy">
+            <figcaption class="gallery-caption">नृत्य प्रस्तुति</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="cultural" role="listitem" tabindex="0">
+            <img src="images/cultural-program-3.jpg" alt="वार्षिकोत्सव" loading="lazy">
+            <figcaption class="gallery-caption">वार्षिकोत्सव</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="academic" role="listitem" tabindex="0">
+            <img src="images/science-lab.jpg" alt="विज्ञान प्रयोगशाला" loading="lazy">
+            <figcaption class="gallery-caption">विज्ञान प्रयोगशाला</figcaption>
+          </figure>
+
+          <figure class="gallery-card tall" data-category="academic" role="listitem" tabindex="0">
+            <img src="images/classroom-activity.jpg" alt="कक्षा गतिविधि" loading="lazy">
+            <figcaption class="gallery-caption">कक्षा गतिविधि</figcaption>
+          </figure>
+
+          <figure class="gallery-card wide" data-category="academic" role="listitem" tabindex="0">
+            <img src="images/annual-function.jpg" alt="वार्षिक समारोह" loading="lazy">
+            <figcaption class="gallery-caption">वार्षिक समारोह</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="academic" role="listitem" tabindex="0">
+            <img src="images/library-activity.jpg" alt="पुस्तकालय गतिविधि" loading="lazy">
+            <figcaption class="gallery-caption">पुस्तकालय गतिविधि</figcaption>
+          </figure>
+
+          <figure class="gallery-card" data-category="academic" role="listitem" tabindex="0">
+            <img src="images/science-exhibition.jpg" alt="विज्ञान प्रदर्शनी" loading="lazy">
+            <figcaption class="gallery-caption">विज्ञान प्रदर्शनी</figcaption>
+          </figure>
+
+        </div>
+        <!-- END MASONRY GRID -->
+
+
+        <!-- SCROLL ROWS SECTION -->
         <div class="scroll-rows-section">
 
+          <!-- ROW 1: Events -->
           <div class="scroll-row">
             <div class="scroll-row-header">
               <h3>🎉 कार्यक्रम | Events</h3>
-              <button class="scroll-row-btn" 
-                      onclick="scrollRow(this,-1)" 
-                      aria-label="Scroll left">‹</button>
-              <button class="scroll-row-btn" 
-                      onclick="scrollRow(this,1)" 
-                      aria-label="Scroll right">›</button>
+              <button class="scroll-row-btn" data-row="events-track" data-dir="-1" aria-label="Scroll left">‹</button>
+              <button class="scroll-row-btn" data-row="events-track" data-dir="1"  aria-label="Scroll right">›</button>
             </div>
-            <div class="scroll-row-track">
-              <figure class="scroll-card">
-                <img src="images/event-photo-1.jpg" alt="Event 1">
-                <figcaption>Event Photo 1</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/event-photo-2.jpg" alt="Event 2">
-                <figcaption>Event Photo 2</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/event-photo-3.jpg" alt="Event 3">
-                <figcaption>Event Photo 3</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/event-photo-4.jpg" alt="Event 4">
-                <figcaption>Event Photo 4</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/event-photo-5.jpg" alt="Event 5">
-                <figcaption>Event Photo 5</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/event-photo-6.jpg" alt="Event 6">
-                <figcaption>Event Photo 6</figcaption>
-              </figure>
+            <div class="scroll-row-wrapper">
+              <div class="scroll-row-track" id="events-track">
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-1.jpg" alt="एयर चीफ मार्शल स्वागत" loading="lazy">
+                  <figcaption>एयर चीफ मार्शल स्वागत</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-2.jpg" alt="पुरस्कार समारोह" loading="lazy">
+                  <figcaption>पुरस्कार समारोह</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-3.jpg" alt="समाचार कवरेज" loading="lazy">
+                  <figcaption>समाचार कवरेज</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-4.jpg" alt="सामूहिक कार्यक्रम" loading="lazy">
+                  <figcaption>सामूहिक कार्यक्रम</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-5.jpg" alt="विशेष आयोजन" loading="lazy">
+                  <figcaption>विशेष आयोजन</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-6.jpg" alt="स्वागत समारोह" loading="lazy">
+                  <figcaption>स्वागत समारोह</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-7.jpg" alt="कार्यक्रम झलकी" loading="lazy">
+                  <figcaption>कार्यक्रम झलकी</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/event-photo-8.jpg" alt="विदाई समारोह" loading="lazy">
+                  <figcaption>विदाई समारोह</figcaption>
+                </figure>
+              </div>
             </div>
+            <div class="scroll-dots" id="events-dots"></div>
           </div>
 
+          <!-- ROW 2: Sports -->
           <div class="scroll-row">
             <div class="scroll-row-header">
               <h3>🏅 खेलकूद | Sports</h3>
-              <button class="scroll-row-btn" 
-                      onclick="scrollRow(this,-1)" 
-                      aria-label="Scroll left">‹</button>
-              <button class="scroll-row-btn" 
-                      onclick="scrollRow(this,1)" 
-                      aria-label="Scroll right">›</button>
+              <button class="scroll-row-btn" data-row="sports-track" data-dir="-1" aria-label="Scroll left">‹</button>
+              <button class="scroll-row-btn" data-row="sports-track" data-dir="1"  aria-label="Scroll right">›</button>
             </div>
-            <div class="scroll-row-track">
-              <figure class="scroll-card">
-                <img src="images/sports-day-1.jpg" alt="Sports Day 1">
-                <figcaption>Sports Day 1</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/sports-day-2.jpg" alt="Sports Day 2">
-                <figcaption>Sports Day 2</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/sports-day-3.jpg" alt="Sports Day 3">
-                <figcaption>Sports Day 3</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/sports-day-4.jpg" alt="Sports Day 4">
-                <figcaption>Sports Day 4</figcaption>
-              </figure>
+            <div class="scroll-row-wrapper">
+              <div class="scroll-row-track" id="sports-track">
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/sports-day-1.jpg" alt="खेल दिवस" loading="lazy">
+                  <figcaption>खेल दिवस</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/sports-day-2.jpg" alt="खेलकूद प्रतियोगिता" loading="lazy">
+                  <figcaption>खेलकूद प्रतियोगिता</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/sports-day-3.jpg" alt="वार्षिक खेलोत्सव" loading="lazy">
+                  <figcaption>वार्षिक खेलोत्सव</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/sports-day-4.jpg" alt="पुरस्कार वितरण" loading="lazy">
+                  <figcaption>पुरस्कार वितरण</figcaption>
+                </figure>
+              </div>
             </div>
+            <div class="scroll-dots" id="sports-dots"></div>
           </div>
 
+          <!-- ROW 3: Cultural -->
           <div class="scroll-row">
             <div class="scroll-row-header">
               <h3>🎭 सांस्कृतिक | Cultural</h3>
-              <button class="scroll-row-btn" 
-                      onclick="scrollRow(this,-1)" 
-                      aria-label="Scroll left">‹</button>
-              <button class="scroll-row-btn" 
-                      onclick="scrollRow(this,1)" 
-                      aria-label="Scroll right">›</button>
+              <button class="scroll-row-btn" data-row="cultural-track" data-dir="-1" aria-label="Scroll left">‹</button>
+              <button class="scroll-row-btn" data-row="cultural-track" data-dir="1"  aria-label="Scroll right">›</button>
             </div>
-            <div class="scroll-row-track">
-              <figure class="scroll-card">
-                <img src="images/cultural-program-1.jpg" alt="Cultural 1">
-                <figcaption>Cultural Program 1</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/cultural-program-2.jpg" alt="Cultural 2">
-                <figcaption>Cultural Program 2</figcaption>
-              </figure>
-              <figure class="scroll-card">
-                <img src="images/cultural-program-3.jpg" alt="Cultural 3">
-                <figcaption>Cultural Program 3</figcaption>
-              </figure>
+            <div class="scroll-row-wrapper">
+              <div class="scroll-row-track" id="cultural-track">
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/cultural-program-1.jpg" alt="सांस्कृतिक कार्यक्रम" loading="lazy">
+                  <figcaption>सांस्कृतिक कार्यक्रम</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/cultural-program-2.jpg" alt="नृत्य प्रस्तुति" loading="lazy">
+                  <figcaption>नृत्य प्रस्तुति</figcaption>
+                </figure>
+                <figure class="scroll-card">
+                  <div class="card-fallback">SVM</div>
+                  <img src="images/cultural-program-3.jpg" alt="वार्षिकोत्सव" loading="lazy">
+                  <figcaption>वार्षिकोत्सव</figcaption>
+                </figure>
+              </div>
             </div>
+            <div class="scroll-dots" id="cultural-dots"></div>
           </div>
 
         </div>
+        <!-- END SCROLL ROWS -->
+
       </div>
     </section>
+
   </main>
 
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Gallery image preview">
-    <button class="lightbox-btn lightbox-close" type="button" aria-label="Close lightbox">×</button>
-    <button class="lightbox-btn lightbox-prev" type="button" aria-label="Previous image">‹</button>
-    <img id="lightbox-image" src="images/gallery-preview.jpg" alt="">
-    <button class="lightbox-btn lightbox-next" type="button" aria-label="Next image">›</button>
+    <button class="lightbox-btn lightbox-close" type="button" aria-label="Close">×</button>
+    <button class="lightbox-btn lightbox-prev" type="button" aria-label="Previous">‹</button>
+    <img id="lightbox-image" src="" alt="">
+    <button class="lightbox-btn lightbox-next" type="button" aria-label="Next">›</button>
   </div>
 
   <div id="footer-root"></div>
@@ -257,127 +836,214 @@
   <script src="header.js"></script>
   <script src="footer.js"></script>
   <script src="scroll-animations.js"></script>
+
   <script>
-    function scrollRow(btn, direction) {
-      const track = btn.closest('.scroll-row')
-                       .querySelector('.scroll-row-track');
-      const cardWidth = track.querySelector('.scroll-card').offsetWidth + 14;
-      track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
+  (function () {
+    'use strict';
+
+    /* ══════════════════════════════════════
+       1. IMAGE LOADING — mark ready
+    ══════════════════════════════════════ */
+    function markImageReady(img) {
+      var card = img.closest('.scroll-card');
+      if (!card) return;
+      if (img.naturalHeight > 0) {
+        img.classList.add('img-ready');
+        card.classList.add('img-ready');
+      } else {
+        /* Image failed — keep fallback visible */
+        img.style.display = 'none';
+      }
     }
 
-    (function () {
-      const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
-      const cards = Array.from(document.querySelectorAll(".masonry-gallery .gallery-card"));
-      const lightbox = document.getElementById("lightbox");
-      const lightboxImage = document.getElementById("lightbox-image");
-      const closeButton = lightbox.querySelector(".lightbox-close");
-      const prevButton = lightbox.querySelector(".lightbox-prev");
-      const nextButton = lightbox.querySelector(".lightbox-next");
-      let visibleCards = cards;
-      let currentIndex = 0;
+    document.querySelectorAll('.scroll-card img').forEach(function (img) {
+      if (img.complete) {
+        markImageReady(img);
+      } else {
+        img.addEventListener('load',  function () { markImageReady(img); });
+        img.addEventListener('error', function () {
+          img.style.display = 'none'; /* show SVM fallback text */
+        });
+      }
+    });
 
-      const updateVisibleCards = () => {
-        visibleCards = cards.filter((card) => !card.classList.contains("is-hidden"));
-      };
+    /* ══════════════════════════════════════
+       2. SCROLL ROW ARROW BUTTONS
+    ══════════════════════════════════════ */
+    document.querySelectorAll('.scroll-row-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var trackId  = btn.dataset.row;
+        var dir      = parseInt(btn.dataset.dir, 10);
+        var track    = document.getElementById(trackId);
+        if (!track) return;
+        var firstCard = track.querySelector('.scroll-card');
+        var cardW = firstCard ? firstCard.offsetWidth + 12 : 200;
+        track.scrollBy({ left: dir * cardW * 2, behavior: 'smooth' });
+      });
+    });
 
-      const applyFilter = (filter) => {
-        cards.forEach((card) => {
-          const shouldShow = filter === "all" || card.dataset.category === filter;
+    /* ══════════════════════════════════════
+       3. SCROLL DOTS — generate & sync
+    ══════════════════════════════════════ */
+    var rowDotConfig = [
+      { trackId: 'events-track',   dotsId: 'events-dots'   },
+      { trackId: 'sports-track',   dotsId: 'sports-dots'   },
+      { trackId: 'cultural-track', dotsId: 'cultural-dots' }
+    ];
 
-          if (shouldShow) {
-            card.hidden = false;
-            requestAnimationFrame(() => {
-              card.classList.remove("is-hidden");
-              card.setAttribute("aria-hidden", "false");
-            });
-            return;
-          }
+    rowDotConfig.forEach(function (cfg) {
+      var track = document.getElementById(cfg.trackId);
+      var dotsEl = document.getElementById(cfg.dotsId);
+      if (!track || !dotsEl) return;
 
-          card.classList.add("is-hidden");
-          card.setAttribute("aria-hidden", "true");
-          window.setTimeout(() => {
-            if (card.classList.contains("is-hidden")) {
-              card.hidden = true;
+      var cards = track.querySelectorAll('.scroll-card');
+      if (cards.length <= 1) return;
+
+      /* Build dots */
+      for (var i = 0; i < cards.length; i++) {
+        (function (idx) {
+          var dot = document.createElement('button');
+          dot.className = 'scroll-dot' + (idx === 0 ? ' is-active' : '');
+          dot.setAttribute('aria-label', 'Go to item ' + (idx + 1));
+          dot.addEventListener('click', function () {
+            var card = track.querySelectorAll('.scroll-card')[idx];
+            if (card) {
+              track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
             }
-          }, 230);
+          });
+          dotsEl.appendChild(dot);
+        })(i);
+      }
+
+      /* Update dots on scroll */
+      track.addEventListener('scroll', function () {
+        var firstCard = track.querySelector('.scroll-card');
+        if (!firstCard) return;
+        var cardW = firstCard.offsetWidth + 12;
+        var activeIdx = Math.round(track.scrollLeft / cardW);
+        var dots = dotsEl.querySelectorAll('.scroll-dot');
+        dots.forEach(function (dot, i) {
+          dot.classList.toggle('is-active', i === activeIdx);
         });
-        updateVisibleCards();
-      };
+      }, { passive: true });
+    });
 
-      filterButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          filterButtons.forEach((item) => item.classList.remove("is-active"));
-          button.classList.add("is-active");
-          applyFilter(button.dataset.filter);
-        });
-      });
+    /* ══════════════════════════════════════
+       4. MASONRY GALLERY FILTER
+    ══════════════════════════════════════ */
+    var filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+    var galleryCards = Array.from(
+      document.querySelectorAll('.masonry-gallery .gallery-card')
+    );
 
-      const showImage = (index) => {
-        if (!visibleCards.length) {
-          return;
-        }
-
-        currentIndex = (index + visibleCards.length) % visibleCards.length;
-        const image = visibleCards[currentIndex].querySelector("img");
-        lightboxImage.src = image.src;
-        lightboxImage.alt = image.alt;
-      };
-
-      const openLightbox = (card) => {
-        updateVisibleCards();
-        currentIndex = visibleCards.indexOf(card);
-        showImage(currentIndex);
-        lightbox.classList.add("is-open");
-        document.body.style.overflow = "hidden";
-      };
-
-      const closeLightbox = () => {
-        lightbox.classList.remove("is-open");
-        document.body.style.overflow = "";
-      };
-
-      cards.forEach((card) => {
-        card.addEventListener("click", () => {
-          if (!card.classList.contains("is-hidden")) {
-            openLightbox(card);
-          }
-        });
-      });
-
-      closeButton.addEventListener("click", closeLightbox);
-      prevButton.addEventListener("click", () => showImage(currentIndex - 1));
-      nextButton.addEventListener("click", () => showImage(currentIndex + 1));
-
-      lightbox.addEventListener("click", (event) => {
-        if (event.target === lightbox) {
-          closeLightbox();
+    function applyFilter(filter) {
+      galleryCards.forEach(function (card) {
+        var match = filter === 'all' || card.dataset.category === filter;
+        if (match) {
+          card.hidden = false;
+          requestAnimationFrame(function () {
+            card.classList.remove('is-hidden');
+            card.setAttribute('aria-hidden', 'false');
+          });
+        } else {
+          card.classList.add('is-hidden');
+          card.setAttribute('aria-hidden', 'true');
+          setTimeout(function () {
+            if (card.classList.contains('is-hidden')) card.hidden = true;
+          }, 300);
         }
       });
+    }
 
-      document.addEventListener("keydown", (event) => {
-        if (!lightbox.classList.contains("is-open")) {
-          return;
-        }
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filterBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        applyFilter(btn.dataset.filter);
+      });
+    });
 
-        if (event.key === "Escape") {
-          closeLightbox();
-        }
+    /* ══════════════════════════════════════
+       5. LIGHTBOX
+    ══════════════════════════════════════ */
+    var lightbox      = document.getElementById('lightbox');
+    var lightboxImg   = document.getElementById('lightbox-image');
+    var closeBtn      = lightbox.querySelector('.lightbox-close');
+    var prevBtn       = lightbox.querySelector('.lightbox-prev');
+    var nextBtn       = lightbox.querySelector('.lightbox-next');
+    var currentIndex  = 0;
+    var visibleCards  = [];
 
-        if (event.key === "ArrowLeft") {
-          showImage(currentIndex - 1);
-        }
+    function getVisible() {
+      visibleCards = galleryCards.filter(function (c) {
+        return !c.classList.contains('is-hidden') && !c.hidden;
+      });
+    }
 
-        if (event.key === "ArrowRight") {
-          showImage(currentIndex + 1);
+    function showAt(idx) {
+      if (!visibleCards.length) return;
+      currentIndex = (idx + visibleCards.length) % visibleCards.length;
+      var img = visibleCards[currentIndex].querySelector('img');
+      if (img) {
+        lightboxImg.src  = img.src;
+        lightboxImg.alt  = img.alt;
+      }
+    }
+
+    function openLightbox(card) {
+      getVisible();
+      currentIndex = visibleCards.indexOf(card);
+      showAt(currentIndex);
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    galleryCards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        if (!card.classList.contains('is-hidden')) openLightbox(card);
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (!card.classList.contains('is-hidden')) openLightbox(card);
         }
       });
+    });
 
-      // Lazy-load opacity effect
-      document.querySelectorAll('img').forEach(function(img) {
-        img.addEventListener('load', function() { img.classList.add('loaded'); });
-        if (img.complete) img.classList.add('loaded');
-      });
-    })();
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', function () { showAt(currentIndex - 1); });
+    nextBtn.addEventListener('click', function () { showAt(currentIndex + 1); });
+
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  showAt(currentIndex - 1);
+      if (e.key === 'ArrowRight') showAt(currentIndex + 1);
+    });
+
+    /* ══════════════════════════════════════
+       6. LAZY LOAD OPACITY EFFECT
+    ══════════════════════════════════════ */
+    document.querySelectorAll('img').forEach(function (img) {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', function () { img.classList.add('loaded'); });
+      }
+    });
+
+  })();
   </script>
+
 </body>
 </html>
