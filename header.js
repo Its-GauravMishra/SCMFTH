@@ -9,7 +9,7 @@
       <header class="site-header" data-component="header">
         <div class="top-bar">
           <div class="top-bar-left">
-            <a href="tel:9450263599" aria-label="Call school">☎ 9450263599</a>
+            <a href="tel:9532166743" aria-label="Call school">☎ 9532166743</a>
             <span aria-hidden="true">|</span>
             <a href="mailto:svmicftp@gmail.com" aria-label="Email school">✉ svmicftp@gmail.com</a>
           </div>

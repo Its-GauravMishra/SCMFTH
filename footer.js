@@ -49,7 +49,7 @@
                 </li>
                 <li>
                   <span aria-hidden="true">📞</span>
-                  <a href="tel:9450263599">9450263599</a>
+                  <a href="tel:9532166743">9532166743</a>
                 </li>
                 <li>
                   <span aria-hidden="true">📧</span>
