@@ -145,34 +145,77 @@
       columns: unset !important;
       column-gap: unset !important;
 
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: 185px;
-      gap: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(36px, 6vw, 72px);
       width: 100%;
     }
     @media (min-width: 540px) {
       .masonry-gallery {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-auto-rows: 200px;
-        gap: 16px;
+        gap: clamp(36px, 6vw, 72px);
       }
     }
     @media (min-width: 900px) {
       .masonry-gallery {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        grid-auto-rows: 220px;
-        gap: 18px;
+        gap: clamp(36px, 6vw, 72px);
       }
     }
     @media (min-width: 1200px) {
       .masonry-gallery {
-        grid-auto-rows: 240px;
-        gap: 20px;
+        gap: clamp(36px, 6vw, 72px);
       }
     }
 
     /* Gallery card — base */
+    .gallery-collage-group {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: dense;
+      grid-auto-rows: clamp(88px, 24vw, 118px);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .gallery-collage-group[hidden] {
+      display: none !important;
+    }
+
+    .collage-group-header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 2px 6px;
+    }
+
+    .collage-group-header h3 {
+      margin: 0;
+      color: var(--primary);
+      font-family: var(--font-hi);
+      font-size: clamp(1.15rem, 2.6vw, 1.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .collage-eyebrow {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .collage-group-note {
+      max-width: 360px;
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
     .masonry-gallery .gallery-card {
       position: relative;
       overflow: hidden;
@@ -201,6 +244,104 @@
     @media (min-width: 540px) {
       .masonry-gallery .gallery-card.wide {
         grid-column: span 2;
+      }
+    }
+
+    .gallery-collage-group .gallery-card:nth-of-type(1) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .gallery-collage-group .gallery-card:nth-of-type(4n + 2) {
+      grid-row: span 2;
+    }
+
+    .gallery-collage-group .gallery-card:nth-of-type(5n + 4) {
+      grid-column: span 2;
+    }
+
+    .gallery-collage-group .gallery-card:last-of-type:nth-of-type(odd) {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 560px) {
+      .collage-group-header {
+        display: block;
+      }
+
+      .collage-group-note {
+        display: none;
+      }
+    }
+
+    @media (min-width: 720px) {
+      .gallery-collage-group {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-auto-rows: 96px;
+        gap: 16px;
+      }
+
+      .gallery-collage-group .gallery-card {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .gallery-collage-group .gallery-card:nth-of-type(1) {
+        grid-column: span 2;
+        grid-row: span 3;
+      }
+
+      .gallery-collage-group .gallery-card:nth-of-type(2) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .gallery-collage-group .gallery-card:nth-of-type(3),
+      .gallery-collage-group .gallery-card:nth-of-type(5) {
+        grid-row: span 2;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-collage-group {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        grid-auto-rows: 92px;
+        gap: 18px;
+      }
+
+      .gallery-collage-group .gallery-card {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .gallery-collage-group .gallery-card:nth-of-type(1) {
+        grid-column: span 3;
+        grid-row: span 4;
+      }
+
+      .gallery-collage-group .gallery-card:nth-of-type(2) {
+        grid-column: span 3;
+        grid-row: span 2;
+      }
+
+      .gallery-collage-group .gallery-card:nth-of-type(3),
+      .gallery-collage-group .gallery-card:nth-of-type(4),
+      .gallery-collage-group .gallery-card:nth-of-type(5) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .gallery-collage-group .gallery-card:nth-of-type(6),
+      .gallery-collage-group .gallery-card:nth-of-type(7) {
+        grid-column: span 3;
+        grid-row: span 2;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .gallery-collage-group {
+        grid-auto-rows: 98px;
+        gap: 20px;
       }
     }
 
@@ -241,6 +382,7 @@
     .masonry-gallery .gallery-card[data-category="sports"]::before   { background: #16a34a; }
     .masonry-gallery .gallery-card[data-category="cultural"]::before { background: #7c3aed; }
     .masonry-gallery .gallery-card[data-category="academic"]::before { background: #0284c7; }
+    .masonry-gallery .gallery-card[data-category="environment"]::before { background: #22c55e; }
 
     /* Caption overlay — always visible on mobile, hover on desktop */
     .gallery-caption {
@@ -278,6 +420,7 @@
       flex-direction: column;
       gap: 60px;
     }
+    .scroll-rows-section[hidden] { display: none !important; }
 
     .scroll-row { width: 100%; }
 
@@ -596,9 +739,18 @@
         </div>
 
         <!-- MASONRY GRID -->
-        <div class="masonry-gallery" id="gallery-grid" role="list">
+        <div class="masonry-gallery" id="gallery-grid">
 
           <!-- EVENTS (10 photos) -->
+          <section class="gallery-collage-group" data-category="events" role="list" aria-label="Events photo collage">
+            <div class="collage-group-header">
+              <div>
+                <span class="collage-eyebrow">Events</span>
+                <h3>Campus Celebrations</h3>
+              </div>
+              <p class="collage-group-note">Prize ceremonies, special assemblies, and festival moments from campus life.</p>
+            </div>
+
           <figure class="gallery-card" data-category="events" role="listitem" tabindex="0">
             <img src="./images/sports-day-1.jpg" alt="Award Ceremony" loading="lazy">
             <figcaption class="gallery-caption">Award Ceremony 2026</figcaption>
@@ -642,8 +794,18 @@
           </figure>
 
           <!-- Removed saraswati-puja-3.jpg (does not exist) -->
+          </section>
 
           <!-- SPORTS (10 photos) -->
+          <section class="gallery-collage-group" data-category="sports" role="list" aria-label="Sports photo collage">
+            <div class="collage-group-header">
+              <div>
+                <span class="collage-eyebrow">Sports</span>
+                <h3>Sports & Wellness</h3>
+              </div>
+              <p class="collage-group-note">Field activities, yoga sessions, games, and wellness moments in motion.</p>
+            </div>
+
           <figure class="gallery-card wide" data-category="sports" role="listitem" tabindex="0">
             <img src="./images/sports-day-4.jpg" alt="Sports Day" loading="lazy">
             <figcaption class="gallery-caption">Annual Sports Day 2026</figcaption>
@@ -693,8 +855,18 @@
             <img src="./images/yoga-day-5.jpg" alt="Yoga Training" loading="lazy">
             <figcaption class="gallery-caption">Yoga Training Session</figcaption>
           </figure>
+          </section>
 
           <!-- CULTURAL (10 photos) -->
+          <section class="gallery-collage-group" data-category="cultural" role="list" aria-label="Cultural photo collage">
+            <div class="collage-group-header">
+              <div>
+                <span class="collage-eyebrow">Cultural</span>
+                <h3>Cultural Life</h3>
+              </div>
+              <p class="collage-group-note">Performances, teacher appreciation, and shared school traditions.</p>
+            </div>
+
           <figure class="gallery-card tall" data-category="cultural" role="listitem" tabindex="0">
             <img src="./images/cultural-program-1.jpg" alt="Cultural Performance" loading="lazy">
             <figcaption class="gallery-caption">Cultural Performance</figcaption>
@@ -744,8 +916,18 @@
             <img src="./images/teachers-day-5.jpg" alt="Teacher Appreciation" loading="lazy">
             <figcaption class="gallery-caption">Teacher Appreciation Event</figcaption>
           </figure>
+          </section>
 
           <!-- ACADEMIC (10 photos) -->
+          <section class="gallery-collage-group" data-category="academic" role="list" aria-label="Academic photo collage">
+            <div class="collage-group-header">
+              <div>
+                <span class="collage-eyebrow">Academic</span>
+                <h3>Learning Spaces</h3>
+              </div>
+              <p class="collage-group-note">Laboratory work, library study, and classroom learning environments.</p>
+            </div>
+
           <figure class="gallery-card tall" data-category="academic" role="listitem" tabindex="0">
             <img src="./images/science-lab-1.jpg" alt="Chemistry Lab" loading="lazy">
             <figcaption class="gallery-caption">Chemistry Laboratory</figcaption>
@@ -780,8 +962,18 @@
           <!-- Removed academics-banner.jpg (banner image) -->
 
           <!-- Removed contact-banner.jpg (banner image) -->
+          </section>
 
           <!-- ENVIRONMENT (6 photos) -->
+          <section class="gallery-collage-group" data-category="environment" role="list" aria-label="Environment photo collage">
+            <div class="collage-group-header">
+              <div>
+                <span class="collage-eyebrow">Environment</span>
+                <h3>Green Campus</h3>
+              </div>
+              <p class="collage-group-note">Tree plantation, eco awareness, and green initiatives led by students.</p>
+            </div>
+
           <figure class="gallery-card" data-category="environment" role="listitem" tabindex="0">
             <img src="./images/environment-day-1.jpg" alt="Tree Plantation" loading="lazy">
             <figcaption class="gallery-caption">Tree Plantation Drive</figcaption>
@@ -811,13 +1003,14 @@
             <img src="./images/environment-day-6.jpg" alt="Green Campus" loading="lazy">
             <figcaption class="gallery-caption">Green Campus Initiative</figcaption>
           </figure>
+          </section>
 
         </div>
         <!-- END MASONRY GRID -->
 
 
         <!-- SCROLL ROWS SECTION -->
-        <div class="scroll-rows-section">
+        <div class="scroll-rows-section" hidden>
 
           <!-- ROW 1: Academic Excellence -->
           <div class="scroll-row">
@@ -1054,11 +1247,20 @@
        4. MASONRY GALLERY FILTER
     ══════════════════════════════════════ */
     var filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+    var collageGroups = Array.from(
+      document.querySelectorAll('.gallery-collage-group')
+    );
     var galleryCards = Array.from(
       document.querySelectorAll('.masonry-gallery .gallery-card')
     );
 
     function applyFilter(filter) {
+      collageGroups.forEach(function (group) {
+        var showGroup = filter === 'all' || group.dataset.category === filter;
+        group.hidden = !showGroup;
+        group.setAttribute('aria-hidden', showGroup ? 'false' : 'true');
+      });
+
       galleryCards.forEach(function (card) {
         var match = filter === 'all' || card.dataset.category === filter;
         if (match) {
