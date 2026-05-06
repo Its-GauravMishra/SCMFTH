@@ -146,21 +146,21 @@
       column-gap: unset !important;
 
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-auto-rows: 180px;
       gap: 8px;
       width: 100%;
     }
     @media (min-width: 540px) {
       .masonry-gallery {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-auto-rows: 190px;
         gap: 10px;
       }
     }
     @media (min-width: 900px) {
       .masonry-gallery {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         grid-auto-rows: 210px;
         gap: 12px;
       }
@@ -180,10 +180,11 @@
       background: var(--primary);
       /* Override any min-height from style.css */
       min-height: unset !important;
-      /* Use display:block not inline-block */
+      min-width: 0;
+      /* Reset native figure margins and column-style cards from style.css */
       display: block !important;
       width: 100% !important;
-      margin-bottom: 0 !important;
+      margin: 0 !important;
       box-shadow: 0 4px 14px rgba(13,31,60,0.13);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
