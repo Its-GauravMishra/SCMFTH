@@ -147,27 +147,28 @@
 
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: 180px;
-      gap: 8px;
+      grid-auto-rows: 185px;
+      gap: 12px;
       width: 100%;
     }
     @media (min-width: 540px) {
       .masonry-gallery {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-auto-rows: 190px;
-        gap: 10px;
+        grid-auto-rows: 200px;
+        gap: 16px;
       }
     }
     @media (min-width: 900px) {
       .masonry-gallery {
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        grid-auto-rows: 210px;
-        gap: 12px;
+        grid-auto-rows: 220px;
+        gap: 18px;
       }
     }
     @media (min-width: 1200px) {
       .masonry-gallery {
-        grid-auto-rows: 230px;
+        grid-auto-rows: 240px;
+        gap: 20px;
       }
     }
 
@@ -175,7 +176,7 @@
     .masonry-gallery .gallery-card {
       position: relative;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 14px;
       cursor: pointer;
       background: var(--primary);
       /* Override any min-height from style.css */
@@ -185,7 +186,7 @@
       display: block !important;
       width: 100% !important;
       margin: 0 !important;
-      box-shadow: 0 4px 14px rgba(13,31,60,0.13);
+      box-shadow: 0 8px 22px rgba(13,31,60,0.12);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -228,13 +229,13 @@
     .masonry-gallery .gallery-card::before {
       content: '';
       position: absolute;
-      top: 9px;
-      left: 9px;
-      width: 9px;
-      height: 9px;
+      top: 8px;
+      left: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       z-index: 3;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.6);
+      box-shadow: 0 0 0 1.5px rgba(255,255,255,0.7);
     }
     .masonry-gallery .gallery-card[data-category="events"]::before   { background: var(--accent); }
     .masonry-gallery .gallery-card[data-category="sports"]::before   { background: #16a34a; }
@@ -246,11 +247,11 @@
       position: absolute;
       bottom: 0; left: 0; right: 0;
       z-index: 2;
-      padding: 28px 10px 10px;
-      background: linear-gradient(0deg, rgba(13,31,60,0.88), transparent);
+      padding: 34px 12px 12px;
+      background: linear-gradient(0deg, rgba(8,20,40,0.86), rgba(8,20,40,0.26) 58%, transparent);
       color: #fff;
       font-family: var(--font-hi);
-      font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+      font-size: clamp(0.72rem, 1.7vw, 0.86rem);
       font-weight: 700;
       transform: translateY(0);
       transition: transform 0.3s ease;
@@ -272,10 +273,10 @@
        SCROLL ROWS — Netflix-style horizontal scroll
     ══════════════════════════════════════════════ */
     .scroll-rows-section {
-      margin-top: 56px;
+      margin-top: 68px;
       display: flex;
       flex-direction: column;
-      gap: 52px;
+      gap: 60px;
     }
 
     .scroll-row { width: 100%; }
@@ -284,7 +285,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
       padding: 0 2px;
     }
     .scroll-row-header h3 {
@@ -340,14 +341,14 @@
     /* Scrollable track */
     .scroll-row-track {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       overflow-x: scroll;
       overflow-y: visible;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       scroll-behavior: smooth;
-      padding: 6px 4px 16px;
+      padding: 8px 4px 18px;
     }
     .scroll-row-track::-webkit-scrollbar { display: none; }
 
@@ -355,18 +356,18 @@
     .scroll-card {
       flex: 0 0 auto;
       /* Responsive width — never overflows on mobile */
-      width: clamp(150px, 40vw, 280px);
+      width: clamp(190px, 72vw, 270px);
       /* aspect-ratio controls height — NO fixed height */
       aspect-ratio: 4 / 3;
       scroll-snap-align: start;
       margin: 0;
-      border-radius: 14px;
+      border-radius: 12px;
       /* CRITICAL: relative so absolute img works */
       position: relative;
       overflow: hidden;
       cursor: pointer;
       background: linear-gradient(135deg, #1a3a6b, #0d1f3c);
-      box-shadow: 0 6px 20px rgba(13,31,60,0.16);
+      box-shadow: 0 10px 24px rgba(13,31,60,0.14);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       isolation: isolate;
     }
@@ -455,25 +456,29 @@
     /* ── SCROLL DOTS ── */
     .scroll-dots {
       display: flex;
-      gap: 6px;
+      gap: 7px;
       justify-content: center;
-      margin-top: 10px;
+      margin-top: 8px;
     }
     @media (min-width: 768px) { .scroll-dots { display: none; } }
 
     .scroll-dot {
       width: 6px; height: 6px;
+      min-width: 6px !important;
+      min-height: 6px !important;
       border-radius: 50%;
       background: var(--border);
       cursor: pointer;
       border: none;
       padding: 0;
-      transition: background 0.3s ease, width 0.3s ease;
+      transition: background 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+      opacity: 0.9;
     }
     .scroll-dot.is-active {
       background: var(--accent);
-      width: 20px;
-      border-radius: 3px;
+      width: 14px;
+      min-width: 14px !important;
+      border-radius: 999px;
     }
 
     /* ── LIGHTBOX ── */
