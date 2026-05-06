@@ -58,11 +58,47 @@
       body { background: white; padding: 0; } 
       .container { box-shadow: none; padding: 0; }
       .table-wrapper { overflow: visible; box-shadow: none; margin: 0 0 20px 0; }
+      .print-btn-bar { display: none !important; }
+    }
+
+    /* Print button bar */
+    .print-btn-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e07b00;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(224,123,0,0.35);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .print-btn:hover { background: #c96d00; transform: translateY(-1px); }
+    .print-btn.secondary { background: #1a3a6b; box-shadow: 0 3px 8px rgba(26,58,107,0.3); }
+    .print-btn.secondary:hover { background: #122b52; }
+    @media (max-width: 480px) {
+      .print-btn { padding: 10px 18px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="print-btn-bar">
+      <button class="print-btn" onclick="window.print()">⬇️ PDF में सेव करें / Print</button>
+      <button class="print-btn secondary" onclick="window.history.length > 1 ? window.history.back() : window.close()">← वापस जाएं</button>
+    </div>
     <h1>सरस्वती विद्या मंदिर इंटर कॉलेज, फतेहपुर</h1>
     <div class="header-info">
       <p><strong>हिंदी माध्यम वार्षिक शुल्क संरचना (सत्र 2026-27)</strong></p>
@@ -293,5 +329,14 @@
       </ul>
     </div>
   </div>
+
+  <script>
+    // Auto-trigger print dialog when ?pdf=1 is in the URL (called from download button)
+    if (new URLSearchParams(window.location.search).get('pdf') === '1') {
+      window.addEventListener('load', function () {
+        setTimeout(function () { window.print(); }, 400);
+      });
+    }
+  </script>
 </body>
 </html>
