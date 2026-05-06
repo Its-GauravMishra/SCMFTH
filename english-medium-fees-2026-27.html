@@ -5,23 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>English Medium Fee Structure 2026-27</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
-    .container { max-width: 1400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
-    h1 { text-align: center; color: #1a3a6b; margin-bottom: 5px; }
-    .school-name { text-align: center; color: #e07b00; font-size: 18px; margin-bottom: 5px; }
-    .header-info { text-align: center; color: #666; margin-bottom: 30px; font-weight: bold; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px; }
-    th, td { border: 1px solid #999; padding: 10px; text-align: center; }
-    th { background: #1a3a6b; color: white; font-weight: bold; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; padding: 12px; background: #f5f5f5; }
+    .container { max-width: 1400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+    h1 { text-align: center; color: #1a3a6b; margin-bottom: 8px; font-size: clamp(18px, 5vw, 28px); }
+    .school-name { text-align: center; color: #e07b00; font-size: clamp(14px, 4vw, 18px); margin-bottom: 5px; }
+    .header-info { text-align: center; color: #666; margin-bottom: 20px; font-weight: bold; font-size: clamp(12px, 3vw, 15px); }
+    
+    .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 0; font-size: clamp(11px, 2.5vw, 14px); min-width: 500px; }
+    th, td { border: 1px solid #999; padding: clamp(6px, 2vw, 10px); text-align: center; }
+    th { background: #1a3a6b; color: white; font-weight: bold; white-space: nowrap; }
     td { background: #f9f9f9; }
-    tr:hover { background: #f0f0f0; }
+    tr:hover { background: #efefef; }
     .total-row { background: #1a3a6b; color: white; font-weight: bold; }
     .head-cell { font-weight: bold; background: #e07b00; color: white; }
-    .notes { margin-top: 30px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; }
-    .notes h3 { margin-top: 0; color: #856404; }
+    
+    .notes { margin-top: 20px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; }
+    .notes h3 { margin-top: 0; margin-bottom: 10px; color: #856404; font-size: clamp(14px, 4vw, 16px); }
     .notes ul { margin: 10px 0; padding-left: 20px; }
-    .notes li { margin: 8px 0; font-size: 13px; }
-    @media print { body { background: white; } .container { box-shadow: none; } }
+    .notes li { margin: 8px 0; font-size: clamp(11px, 2.5vw, 13px); line-height: 1.5; }
+    
+    /* Mobile-specific fixes */
+    @media (max-width: 768px) {
+      body { padding: 8px; }
+      .container { padding: 15px; }
+      .table-wrapper { margin: -15px -15px 20px -15px; border-radius: 0; }
+      table { min-width: 600px; }
+      th, td { padding: 8px 6px; word-break: break-word; }
+      th { font-size: 11px; }
+      td { font-size: 11px; }
+      .notes { margin: 15px -15px -15px -15px; border-radius: 0; }
+    }
+    
+    @media (max-width: 480px) {
+      body { padding: 6px; }
+      .container { padding: 12px; border-radius: 4px; }
+      h1 { margin-bottom: 6px; }
+      .header-info { margin-bottom: 15px; }
+      .table-wrapper { margin: -12px -12px 15px -12px; }
+      table { min-width: 550px; }
+      th, td { padding: 6px 4px; font-size: 10px; }
+      th br { display: none; }
+      .notes { margin: 12px -12px -12px -12px; padding: 12px; }
+      .notes h3 { font-size: 13px; margin-bottom: 8px; }
+      .notes ul { padding-left: 16px; }
+      .notes li { margin: 6px 0; font-size: 10px; }
+    }
+    
+    @media print { 
+      body { background: white; padding: 0; } 
+      .container { box-shadow: none; padding: 0; }
+      .table-wrapper { overflow: visible; box-shadow: none; margin: 0 0 20px 0; }
+    }
   </style>
 </head>
 <body>
@@ -30,6 +66,7 @@
     <div class="school-name">V.I.P. ROAD - FATEHPUR</div>
     <div class="header-info">ANNUAL CHARGES SESSION 2026-27</div>
 
+    <div class="table-wrapper">
     <table>
       <thead>
         <tr>
@@ -223,6 +260,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <div class="notes">
       <h3>Note:</h3>
